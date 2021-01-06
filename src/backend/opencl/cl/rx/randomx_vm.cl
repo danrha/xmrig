@@ -370,7 +370,7 @@ __kernel void init_vm(__global const void* entropy_data, __global void* vm_state
 			uint32_t full_read_latency = mem_read_latency;
 			update_max(full_read_latency, reg_read_latency);
 
-			uint32_t latency = 0;
+			int32_t latency = 0;
 			bool is_memory_op = false;
 			bool is_memory_store = false;
 			bool is_nop = false;
@@ -1630,7 +1630,7 @@ double sqrt_rnd(double x, uint32_t fprc)
 	// First Newton-Raphson iteration
 	double t0 = y0 * x;
 	double t1 = y0 * -0.5;
-	t1 = fma(t1, t0, 0.5);					// 0.5 * (1.0 - y0 * y0 * x)
+	t1 = fma(t1, t0, (double)0.5);			// 0.5 * (1.0 - y0 * y0 * x)
 	const double y1_x = fma(t0, t1, t0);	// y1 * x = 0.5 * y0 * x * (3.0 - y0 * y0 * x)
 
 	// Second Newton-Raphson iteration
